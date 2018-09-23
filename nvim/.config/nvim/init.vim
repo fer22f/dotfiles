@@ -83,3 +83,6 @@ if exists("+inccommand")
 endif
 
 tnoremap <Esc> <C-\><C-n>
+
+" Update time of 100ms for vim-gitgutter
+set updatetime=100
