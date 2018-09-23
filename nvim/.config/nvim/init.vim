@@ -1,3 +1,6 @@
+set packpath+=~/.config/nvim
+packloadall
+
 let g:vim_markdown_folding_disabled=1
 
 let g:gruvbox_contrast_dark='hard'
@@ -75,8 +78,8 @@ set conceallevel=2
 autocmd FileType markdown set conceallevel=0
 
 set hidden
-set inccommand=nosplit
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+if exists("+inccommand")
+  set inccommand=nosplit
+endif
 
 tnoremap <Esc> <C-\><C-n>
