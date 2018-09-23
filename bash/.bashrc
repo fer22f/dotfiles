@@ -112,7 +112,7 @@ function cool_prompt {
   GIT_PS1_STATESEPARATOR=""
   GIT_PS1_SHOWCOLORHINTS=true
 
-  __git_ps1 '\[$(tput sc; printf "%*s" $COLUMNS $P_EXIT; tput rc)\]$LAMBDA ' '$GITINFO ${MAGENTA}$COMPUTER$YELLOW\w$RESET :' '%s'
+  __git_ps1 '\[$(tput sc; printf "%*s" $COLUMNS $P_EXIT; tput rc)\]$LAMBDA ' '${MAGENTA}$COMPUTER$YELLOW\w$RESET :' '%s '
 }
 
 PROMPT_COMMAND=cool_prompt
