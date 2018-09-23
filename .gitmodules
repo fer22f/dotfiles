@@ -52,3 +52,6 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-argumentative"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
+[submodule "bash/.config/bash/LS_COLORS"]
+	path = bash/.config/bash/LS_COLORS
+	url = https://github.com/trapd00r/LS_COLORS.git
