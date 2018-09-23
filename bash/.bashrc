@@ -133,3 +133,13 @@ export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 source $XDG_CONFIG_HOME/bash/git-prompt.sh
 
 cd () { builtin cd "$@" && ls -CF; }
+
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+take () {
+  mkdir -p $1 && cd $1
+}
+
+source $XDG_CONFIG_HOME/bash/gt.sh
