@@ -1,57 +1,76 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/gruvbox"]
 	path = nvim/.config/nvim/pack/external-plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/tabular"]
 	path = nvim/.config/nvim/pack/external-plugins/start/tabular
 	url = https://github.com/godlygeek/tabular.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-abolish"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-fugitive"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-gitgutter"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-javascript"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-lion"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-lion
 	url = https://github.com/tommcdo/vim-lion.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-markdown"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-pug"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-pug
 	url = https://github.com/digitaltoad/vim-pug.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-repeat"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-rsi"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-rsi
 	url = https://github.com/tpope/vim-rsi.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-surround"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-unimpaired"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-vue"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-vue
 	url = https://github.com/posva/vim-vue.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-commentary"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-exchange"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-exchange
 	url = https://github.com/tommcdo/vim-exchange.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/targets.vim"]
 	path = nvim/.config/nvim/pack/external-plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-argumentative"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-argumentative
 	url = https://github.com/PeterRincker/vim-argumentative.git
+	shallow = true
 [submodule "bash/.config/bash/LS_COLORS"]
 	path = bash/.config/bash/LS_COLORS
 	url = https://github.com/trapd00r/LS_COLORS.git
+	shallow = true
