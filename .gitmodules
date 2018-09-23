@@ -40,3 +40,15 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-vue"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-vue
 	url = https://github.com/posva/vim-vue.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-commentary"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-exchange"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-exchange
+	url = https://github.com/tommcdo/vim-exchange.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/targets.vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/targets.vim
+	url = https://github.com/wellle/targets.vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-argumentative"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-argumentative
+	url = https://github.com/PeterRincker/vim-argumentative.git
