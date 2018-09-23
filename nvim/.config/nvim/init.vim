@@ -86,3 +86,8 @@ tnoremap <Esc> <C-\><C-n>
 
 " Update time of 100ms for vim-gitgutter
 set updatetime=100
+
+set modeline
+nnoremap Y y$
+nnoremap <leader>e :e **/*
+nnoremap <leader>g :Ggrep 
