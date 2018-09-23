@@ -131,3 +131,5 @@ export VIMDOTDIR="$XDG_CONFIG_HOME/nvim"
 export PROMPT_DIRTRIM=3
 
 source $XDG_CONFIG_HOME/bash/git-prompt.sh
+
+cd () { builtin cd "$@" && ls -CF; }
