@@ -1,0 +1,19 @@
+# Display colored completion matches
+set colored-stats on
+
+# Completion on filename without matching case
+set completion-ignore-case on
+
+# Treats hyphens and underscores interchangeably
+set completion-map-case on
+
+set editing-mode vi
+
+# Skip all text after the cursor for completion
+set skip-completed-text on
+
+# List completion matches immediately when multiple completions are possible
+set show-all-if-ambiguous on
+
+# List completion matches immediately when there's no common prefix
+set show-all-if-unmodified on

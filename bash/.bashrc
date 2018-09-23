@@ -129,6 +129,7 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim" | source $MYVIMRC'
 export VIMDOTDIR="$XDG_CONFIG_HOME/nvim"
 
 export PROMPT_DIRTRIM=3
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
 source $XDG_CONFIG_HOME/bash/git-prompt.sh
 
