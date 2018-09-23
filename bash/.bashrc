@@ -59,7 +59,7 @@ fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-alias ll='ls -lAF'
+alias ll='ls -lAFh'
 alias la='ls -ACF'
 alias l='ls -CF'
 
@@ -81,17 +81,16 @@ alias pdftotext="mutool draw 2>/dev/null -F txt"
 
 export PATH=$PATH:~/.local/bin/
 
+RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
 YELLOW="$(tput setaf 3)"
-RED="$(tput setaf 4)"
 MAGENTA="$(tput setaf 5)"
 RESET="$(tput sgr0)"
 
 function cool_prompt {
-  if [ $? -eq 0 ]; then
+  P_EXIT="$?"
+  if [ $P_EXIT -eq 0 ]; then
     P_EXIT=""
-  else
-    P_EXIT="$?"
   fi
 
   if [ $UID -eq 0 ]; then
@@ -112,7 +111,7 @@ function cool_prompt {
   GIT_PS1_STATESEPARATOR=""
   GIT_PS1_SHOWCOLORHINTS=true
 
-  __git_ps1 '\[$(tput sc; printf "%*s" $COLUMNS $P_EXIT; tput rc)\]$LAMBDA ' '${MAGENTA}$COMPUTER$YELLOW\w$RESET :' '%s '
+  __git_ps1 '\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]$LAMBDA ' '${MAGENTA}$COMPUTER$YELLOW\w$RESET :' '%s '
 }
 
 PROMPT_COMMAND=cool_prompt
