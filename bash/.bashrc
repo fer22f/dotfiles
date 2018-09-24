@@ -24,29 +24,6 @@ shopt -s extglob
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-# We have color support; assume it's compliant with Ecma-48
-# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-# a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.config/bash/LS_COLORS/LS_COLORS && eval "$(dircolors -b ~/.config/bash/LS_COLORS/LS_COLORS)" || eval "$(dircolors -b)"
@@ -86,6 +63,8 @@ GREEN="$(tput setaf 2)"
 YELLOW="$(tput setaf 3)"
 MAGENTA="$(tput setaf 5)"
 RESET="$(tput sgr0)"
+TITLE="$(echo -en "\033]0;")"
+TITLEEND="$(echo -en "\007")"
 
 function cool_prompt {
   P_EXIT="$?"
@@ -111,7 +90,7 @@ function cool_prompt {
   GIT_PS1_STATESEPARATOR=""
   GIT_PS1_SHOWCOLORHINTS=true
 
-  __git_ps1 "\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]$LAMBDA " "\[$MAGENTA\]$COMPUTER\[$YELLOW\]\w\[$RESET\] :" '%s '
+  __git_ps1 "\[${TITLE}$COMPUTER\w$TITLEEND\]\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]$LAMBDA " "\[${MAGENTA}\]$COMPUTER\[$YELLOW\]\w\[$RESET\] :" '%s '
 }
 
 PROMPT_COMMAND=cool_prompt
