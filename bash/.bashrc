@@ -94,9 +94,9 @@ function cool_prompt {
   fi
 
   if [ $UID -eq 0 ]; then
-    LAMBDA="$REDΛ$RESET"
+    LAMBDA="\[$RED\]Λ\[$RESET\]"
   else
-    LAMBDA="$GREENλ$RESET"
+    LAMBDA="\[$GREEN\]λ\[$RESET\]"
   fi
 
   if [ -n "$SSH_CLIENT" ]; then
@@ -111,7 +111,7 @@ function cool_prompt {
   GIT_PS1_STATESEPARATOR=""
   GIT_PS1_SHOWCOLORHINTS=true
 
-  __git_ps1 "\[$(tput sc; printf ""$RED%*s$RESET"" $COLUMNS ""$P_EXIT ""; tput rc)\]$LAMBDA " "${MAGENTA}$COMPUTER$YELLOW\w$RESET :" '%s '
+  __git_ps1 "\[$(tput sc; printf ""$RED%*s$RESET"" $COLUMNS ""$P_EXIT ""; tput rc)\]$LAMBDA " "\[$MAGENTA\]$COMPUTER\[$YELLOW\]\w\[$RESET\] :" '%s '
 }
 
 PROMPT_COMMAND=cool_prompt
