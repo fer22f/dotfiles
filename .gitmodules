@@ -77,3 +77,6 @@
 [submodule "bash/.config/bash/z"]
 	path = bash/.config/bash/z
 	url = https://github.com/rupa/z.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/neoterm"]
+	path = nvim/.config/nvim/pack/external-plugins/start/neoterm
+	url = https://github.com/kassio/neoterm

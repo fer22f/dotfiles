@@ -108,3 +108,6 @@ nnoremap <A-l> <C-w>l
 highlight link jsFuncCall GruvboxGreen
 
 autocmd BufRead,BufNewFile *.vue syntax sync fromstart
+
+nmap <c-c><c-c> <Plug>(neoterm-repl-send-line)
+xmap <c-c><c-c> <Plug>(neoterm-repl-send-line)
