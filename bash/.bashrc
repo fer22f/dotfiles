@@ -89,7 +89,16 @@ function cool_prompt {
   GIT_PS1_STATESEPARATOR=""
   GIT_PS1_SHOWCOLORHINTS=true
 
-  __git_ps1 "\[${TITLE}$COMPUTER\w$TITLEEND\]\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]$LAMBDA " "\[${MAGENTA}\]$COMPUTER\[$YELLOW\]\w\[$RESET\] :" '%s '
+  # title
+  STARTPS1="\[${TITLE}$COMPUTER\w$TITLEEND\]"
+  # error code at the right
+  STARTPS1+="\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]"
+  # lambda
+  STARTPS1+="$LAMBDA "
+
+  ENDPS1="\[${MAGENTA}\]$COMPUTER\[$YELLOW\]\w\[$RESET\] :"
+
+  __git_ps1 "$STARTPS1" "$ENDPS1" '%s '
 }
 
 PROMPT_COMMAND=cool_prompt
