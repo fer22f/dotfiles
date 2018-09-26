@@ -49,8 +49,6 @@ if ! shopt -oq posix; then
 fi
 
 export EDITOR=nvim
-alias e="f -e $EDITOR"
-alias o="a -e xdg-open"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias pdftotext="mutool draw 2>/dev/null -F txt"
@@ -131,6 +129,7 @@ take () {
 
 source $XDG_CONFIG_HOME/bash/gt.sh
 
-# fasd setup
-export PATH=$PATH:~/.config/bash/fasd
-eval "$(fasd --init auto)"
+alias e=$EDITOR
+alias o=xdg-open
+
+source $XDG_CONFIG_HOME/bash/z/z.sh
