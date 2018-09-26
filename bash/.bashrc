@@ -48,10 +48,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. /usr/share/autojump/autojump.sh
-
 export EDITOR=nvim
-alias e=$EDITOR
+alias e="f -e $EDITOR"
+alias o="a -e xdg-open"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias pdftotext="mutool draw 2>/dev/null -F txt"
@@ -122,3 +121,7 @@ take () {
 }
 
 source $XDG_CONFIG_HOME/bash/gt.sh
+
+# fasd setup
+export PATH=$PATH:~/.config/bash/fasd
+eval "$(fasd --init auto)"

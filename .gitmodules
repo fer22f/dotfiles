@@ -74,3 +74,7 @@
 	path = bash/.config/bash/LS_COLORS
 	url = https://github.com/trapd00r/LS_COLORS.git
 	shallow = true
+[submodule "bash/.config/bash/fasd"]
+	path = bash/.config/bash/fasd
+	url = https://github.com/clvv/fasd.git
+	shallow = true
