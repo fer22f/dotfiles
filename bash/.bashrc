@@ -133,3 +133,7 @@ alias e=$EDITOR
 alias o=xdg-open
 
 source $XDG_CONFIG_HOME/bash/z/z.sh
+
+if [[ -f $XDG_CONFIG_HOME/bash/local.sh ]]; then
+  source $XDG_CONFIG_HOME/bash/local.sh
+fi

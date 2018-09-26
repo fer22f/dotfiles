@@ -1,0 +1,5 @@
+# internal/private configuration
+bash/.config/bash/local.sh
+
+# cache
+.netrwhist
