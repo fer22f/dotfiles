@@ -45,7 +45,7 @@ gt () {
     "diff")
       git diff HEAD;;
     "")
-      git status -sb;;
+      git status;;
     *)
       git $@;;
   esac
