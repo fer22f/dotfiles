@@ -12,6 +12,8 @@ gt () {
       esac;;
     "stage")
       git add ${2:-.};;
+    "patch")
+      git add --patch $2;;
     "commit")
       if [[ -z $(git diff --staged) ]]; then
         git add . && git commit -v
@@ -20,16 +22,18 @@ gt () {
       fi
 
       if [[ $? -eq 1 ]]; then
+        ROOT_DIR=$(git rev-parse --show-toplevel)
+
         echo Which files do you want to edit?
         select FILENAME in $(git diff --staged --name-only); do
-          $EDITOR $FILENAME
+          $EDITOR $ROOT_DIR/$FILENAME
           break
         done
 
         echo Commit?
         select RECOMMIT in "Commit" "No"; do
           if [[ $RECOMMIT == "Commit" ]]; then
-            git add $FILENAME
+            git add $ROOT_DIR/$FILENAME
             gt commit
           fi
           break
