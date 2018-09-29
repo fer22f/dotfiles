@@ -73,9 +73,16 @@
 [submodule "bash/.config/bash/z"]
 	path = bash/.config/bash/z
 	url = https://github.com/rupa/z.git
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/neoterm"]
 	path = nvim/.config/nvim/pack/external-plugins/start/neoterm
 	url = https://github.com/kassio/neoterm
+	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-sandwich"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/clever-f.vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/clever-f.vim
+	url = https://github.com/rhysd/clever-f.vim.git
+	shallow = true
