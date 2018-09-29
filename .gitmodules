@@ -42,10 +42,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-rsi
 	url = https://github.com/tpope/vim-rsi.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-surround"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-unimpaired"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
@@ -80,3 +76,6 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/neoterm"]
 	path = nvim/.config/nvim/pack/external-plugins/start/neoterm
 	url = https://github.com/kassio/neoterm
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-sandwich"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich
