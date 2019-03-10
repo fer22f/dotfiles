@@ -86,3 +86,9 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/clever-f.vim
 	url = https://github.com/rhysd/clever-f.vim.git
 	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/ctrlp.vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/ctrlp.vim
+	url = git@github.com:ctrlpvim/ctrlp.vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/ale"]
+	path = nvim/.config/nvim/pack/external-plugins/start/ale
+	url = https://github.com/w0rp/ale.git
