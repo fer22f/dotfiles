@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 gt () {
   case "$1" in
     "get")
@@ -5,15 +7,22 @@ gt () {
         "b" | "branch" | "branches") git branch -v;;
       esac;;
     "go")
-      git checkout $3 2>/dev/null || git checkout -b $3;;
+      shift 1
+      git checkout ${@} || git checkout -b ${@};;
     "new")
       case "$2" in
-        "b" | "branch" | "branches") git checkout -b $3;;
+        "b" | "branch" | "branches")
+          shift 2
+
+          echo "git checkout -b ${@}"
+          # git checkout -b $@;;
       esac;;
     "stage")
-      git add ${2:-.};;
+      shift 1
+      git add -- ${@:-.};;
     "patch")
-      git add --patch $2;;
+      shift 1
+      git add --patch -- ${@};;
     "commit")
       if [[ -z $(git diff --staged) ]]; then
         git add . && git commit -v
@@ -40,10 +49,11 @@ gt () {
         done
       fi
       ;;
-    "ammend")
-      git commit -a --ammend;;
+    "amend")
+      git commit -a --amend;;
     "diff")
-      git diff HEAD;;
+      shift 1
+      git diff HEAD -- ${@};;
     "")
       git status;;
     *)
