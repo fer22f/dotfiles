@@ -18,13 +18,7 @@ let g:gruvbox_contrast_dark='hard'
 set background=dark
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 colorscheme gruvbox
-
-let mapleader=' '
-nnoremap <leader>v :e $MYVIMRC
-
-" open files
-nnoremap <Leader>o :<C-u>call OpenLines(v:count,0)<CR>S
-nnoremap <Leader>O :<C-u>call OpenLines(v:count,-1)<CR>S
+highlight link jsFuncCall GruvboxGreen
 
 " PEP-8
 set colorcolumn=79
@@ -44,18 +38,52 @@ set list listchars=trail:•,tab:»\ |
 
 " conceal cursor
 aug conceal | exe 'au!' | au BufWinEnter * set concealcursor=cn | aug end
+let g:javascript_conceal_function="λ"
+set conceallevel=2
 
 set expandtab tabstop=2 shiftwidth=2 softtabstop=2
-
-" some file types are special
 autocmd Filetype c setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype elm setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
+" allow for searching using :find
+set path=.,**
+set wildignore=*/node_modules/*
+
+" allow for multiple buffers
+set hidden
+
+" uses amazing incremental command neovim feature if available
+if exists("+inccommand")
+  set inccommand=nosplit
+endif
+
 " moving sanely
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
+
+" sane terminal ESC
+tnoremap <Esc> <C-\><C-n>
+
+let mapleader=' '
+
+" open .vimrc or init.vim
+nnoremap <leader>v :e $MYVIMRC
+
+" open one or more lines lines
+nnoremap <Leader>o :<C-u>call OpenLines(v:count,0)<CR>S
+nnoremap <Leader>O :<C-u>call OpenLines(v:count,-1)<CR>S
+
+" set working directory to the current file
+nnoremap <leader>cd :cd %:p:h<CR>
+
+nnoremap <leader>f :find<space>
+nnoremap <leader>g :Ggrep<space>
+nnoremap <leader>a :Gwrite<CR>
+
+set modeline
+nnoremap Y y$
 
 " open multiple lines (insert empty lines) before or after current line,
 " and position cursor in the new space, with at least one blank line
@@ -89,23 +117,6 @@ aug resCur
 \     endif
 aug end
 
-let g:javascript_conceal_function="λ"
-set conceallevel=2
-
-set hidden
-if exists("+inccommand")
-  set inccommand=nosplit
-endif
-
-" sane terminal ESC
-tnoremap <Esc> <C-\><C-n>
-
-set modeline
-nnoremap Y y$
-nnoremap <leader>f :find<space>
-nnoremap <leader>g :Ggrep<space>
-nnoremap <leader>a :Gwrite<CR>
-
 " git grep
 func! GitGrep(...)
   let save = &grepprg
@@ -119,10 +130,6 @@ func! GitGrep(...)
 endfun
 command! -nargs=? Ggrep call GitGrep(<f-args>)
 
-" allow for searching using :find
-set path=.,**
-set wildignore=*/node_modules/*
-
 " highlight bad whitespace
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -134,7 +141,7 @@ autocmd BufWinLeave * call clearmatches()
 command! -range=% TR let b:wv = winsaveview() |
             \ keeppattern <line1>,<line2>s/\s\+$// |
             \ call winrestview(b:wv)
-nnoremap <expr> <leader>w TR()
+nnoremap <leader>w :<C-U>TR<CR>
 nnoremap ]w ?\s\+$<CR>
 nnoremap [w /\s\+$<CR>
 
@@ -145,11 +152,29 @@ nnoremap Q @q
 vmap > >gv
 vmap < <gv
 
+" change current word
+nnoremap <silent> <leader>. :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \cgn<C-R>.<esc>:call setreg('"', old_reg, old_regtype)<CR>
+
+" search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
 " recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
-"return '[\s]' if trailing white space is detected
-"return '' otherwise
+" return '•' if trailing white space is detected else ''
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
         if search('\s\+$', 'nw') != 0
@@ -161,7 +186,7 @@ function! StatuslineTrailingSpaceWarning()
     return b:statusline_trailing_space_warning
 endfunction
 
-" moving between windows
+" moving between windows with Alt+HJKL
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
@@ -175,10 +200,10 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-highlight link jsFuncCall GruvboxGreen
-
+" fix syntax highlighting issues with vue files
 autocmd BufRead,BufNewFile *.vue syntax sync fromstart
 
+" add close hidden buffers command
 command! CloseHiddenBuffers call s:CloseHiddenBuffers()
 function! s:CloseHiddenBuffers()
   let open_buffers = []
@@ -194,23 +219,7 @@ function! s:CloseHiddenBuffers()
   endfor
 endfunction
 
-" search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-vmap <leader>c *``cgn
-nmap <leader>c *``cgn
-nnoremap z* *``
-vnoremap z* *``<esc>
-
+" statusline colors
 hi User1 guibg=red
 hi User2 guifg=orange guibg=#504945
 hi User3 guifg=red guibg=#504945
