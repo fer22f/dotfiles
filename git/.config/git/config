@@ -2,7 +2,7 @@
   name = fer22f
   email = fer22f@gmail.com
 [alias]
-  ammend = commit -a --ammend
+  ammend = commit --ammend
   unstage = reset HEAD --
   stagediff = diff --cached
   alldiff = diff --cached HEAD^

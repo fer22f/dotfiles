@@ -50,7 +50,7 @@ gt () {
       fi
       ;;
     "amend")
-      git commit -a --amend;;
+      git commit --amend;;
     "diff")
       shift 1
       git diff HEAD -- ${@};;
