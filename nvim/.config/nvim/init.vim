@@ -16,9 +16,16 @@ autocmd FileType markdown set conceallevel=0
 " setup gruvbox theme
 let g:gruvbox_contrast_dark='hard'
 set background=dark
+
+" extra whitespace
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" statusline colors
+:autocmd ColorScheme * highlight User1 guibg=red
+:autocmd ColorScheme * highlight User2 guifg=orange guibg=#504945
+:autocmd ColorScheme * highlight User3 guifg=red guibg=#504945
+:autocmd ColorScheme * highlight link jsFuncCall GruvboxGreen
+
 colorscheme gruvbox
-highlight link jsFuncCall GruvboxGreen
 
 " PEP-8
 set colorcolumn=79
@@ -106,7 +113,7 @@ augroup relativize
   autocmd!
   autocmd BufWinEnter,FocusGained,InsertLeave,WinEnter * call Relativize(1)
   autocmd BufWinLeave,FocusLost,InsertEnter,WinLeave * call Relativize(0)
-augroup END
+augroup end
 
 " go back to editing the same line as you exited in a file
 aug resCur
@@ -131,11 +138,19 @@ endfun
 command! -nargs=? Ggrep call GitGrep(<f-args>)
 
 " highlight bad whitespace
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+augroup WhiteSpaceMatch
+  autocmd!
+  match ExtraWhitespace /\s\+$/
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup end
+
+augroup GitCommitNoWhiteSpaceMatch
+  autocmd!
+  autocmd FileType gitcommit call clearmatches() | autocmd! WhiteSpaceMatch
+augroup end
 
 " clear trailing space
 command! -range=% TR let b:wv = winsaveview() |
@@ -176,14 +191,19 @@ autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
 " return '•' if trailing white space is detected else ''
 function! StatuslineTrailingSpaceWarning()
-    if !exists("b:statusline_trailing_space_warning")
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '•'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
+  " I don't care about trailing space in those
+  if &filetype == 'gitcommit'
+    return ''
+  endif
+
+  if !exists("b:statusline_trailing_space_warning")
+    if search('\s\+$', 'nw') != 0
+      let b:statusline_trailing_space_warning = '•'
+    else
+      let b:statusline_trailing_space_warning = ''
     endif
-    return b:statusline_trailing_space_warning
+  endif
+  return b:statusline_trailing_space_warning
 endfunction
 
 " moving between windows with Alt+HJKL
@@ -218,11 +238,6 @@ function! s:CloseHiddenBuffers()
     endif
   endfor
 endfunction
-
-" statusline colors
-hi User1 guibg=red
-hi User2 guifg=orange guibg=#504945
-hi User3 guifg=red guibg=#504945
 
 " start of the statusline
 set statusline=\ "
