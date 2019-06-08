@@ -64,6 +64,12 @@ TITLE="$(echo -en "\033]0;")"
 TITLEEND="$(echo -en "\007")"
 
 function cool_prompt {
+  if [ -n "SSH_CLIENT" ]; then
+    printf %b '\e]11;#000000\a'
+  else
+    printf %b '\e]11;#04143a\a'
+  fi
+
   P_EXIT="$?"
   if [ $P_EXIT -eq 0 ]; then
     P_EXIT=""
@@ -89,8 +95,6 @@ function cool_prompt {
 
   # title
   STARTPS1="\[${TITLE}$COMPUTER\w$TITLEEND\]"
-  # error code at the right
-  STARTPS1+="\[$(tput sc; printf "$RED%*s$RESET" $COLUMNS "$P_EXIT "; tput rc)\]"
   # lambda
   STARTPS1+="$LAMBDA "
 
@@ -130,10 +134,15 @@ take () {
 source $XDG_CONFIG_HOME/bash/gt.sh
 
 alias e=$EDITOR
-alias o=xdg-open
+alias o=xdg-open >/dev/null 2>/dev/null
 
 source $XDG_CONFIG_HOME/bash/z/z.sh
 
 if [[ -f $XDG_CONFIG_HOME/bash/local.sh ]]; then
   source $XDG_CONFIG_HOME/bash/local.sh
 fi
+
+export PATH=$PATH:~/.cabal/bin
+export PATH=$PATH:~/.local/flutter/bin
+
+alias dcr="docker-compose run --rm"
