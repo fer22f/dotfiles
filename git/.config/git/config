@@ -1,6 +1,9 @@
 [user]
   name = fer22f
   email = fer22f@gmail.com
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
 [alias]
   ammend = commit --ammend
   unstage = reset HEAD --
