@@ -14,6 +14,9 @@
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   filelog = log -u
   logtree = log --graph --oneline --decorate --all
+  fixup = !sh -c 'git commit --fixup=$1' -
+  squash = !sh -c 'git commit --squash=$1' -
+  ri = rebase --interactive --autosquash
 [advice]
   pushNonFastForward = false
   statusHints        = false
