@@ -51,7 +51,10 @@ fi
 export EDITOR=nvim
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
-alias pdftotext="mutool draw 2>/dev/null -F txt"
+
+if command -v mutool; then
+  alias pdftotext="mutool draw 2>/dev/null -F txt"
+fi
 
 export PATH=$PATH:~/.local/bin/
 
@@ -62,6 +65,12 @@ MAGENTA="$(tput setaf 5)"
 RESET="$(tput sgr0)"
 TITLE="$(echo -en "\033]0;")"
 TITLEEND="$(echo -en "\007")"
+
+if [ -n "SSH_CLIENT" ]; then
+  printf %b '\e]11;#000000\a'
+else
+  printf %b '\e]11;#04143a\a'
+fi
 
 function cool_prompt {
   if [ -n "SSH_CLIENT" ]; then
