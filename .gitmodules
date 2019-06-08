@@ -10,14 +10,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-fugitive"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-gitgutter"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-javascript"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
@@ -62,10 +54,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-argumentative"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-argumentative
-	url = https://github.com/PeterRincker/vim-argumentative.git
-	shallow = true
 [submodule "bash/.config/bash/LS_COLORS"]
 	path = bash/.config/bash/LS_COLORS
 	url = https://github.com/trapd00r/LS_COLORS.git
@@ -74,21 +62,35 @@
 	path = bash/.config/bash/z
 	url = https://github.com/rupa/z.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/neoterm"]
-	path = nvim/.config/nvim/pack/external-plugins/start/neoterm
-	url = https://github.com/kassio/neoterm
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-sandwich"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-sandwich
-	url = https://github.com/machakann/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/clever-f.vim"]
-	path = nvim/.config/nvim/pack/external-plugins/start/clever-f.vim
-	url = https://github.com/rhysd/clever-f.vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/yats.vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/yats.vim
+	url = https://github.com/HerringtonDarkholme/yats.vim.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/ctrlp.vim"]
-	path = nvim/.config/nvim/pack/external-plugins/start/ctrlp.vim
-	url = git@github.com:ctrlpvim/ctrlp.vim.git
-[submodule "nvim/.config/nvim/pack/external-plugins/start/ale"]
-	path = nvim/.config/nvim/pack/external-plugins/start/ale
-	url = https://github.com/w0rp/ale.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-eunuch"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-hexokinase"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-hexokinase
+	url = https://github.com/RRethy/vim-hexokinase.git
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/previm"]
+	path = nvim/.config/nvim/pack/external-plugins/start/previm
+	url = https://github.com/previm/previm.git
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-move"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
+	url = https://github.com/matze/vim-move.git
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-swap"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-swap
+	url = https://github.com/machakann/vim-swap.git
+	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-package-info"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-package-info
+	url = https://github.com/meain/vim-package-info.git
+	shallow = true
