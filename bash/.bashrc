@@ -52,7 +52,7 @@ export EDITOR=nvim
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 
-if command -v mutool; then
+if command -v mutool >/dev/null; then
   alias pdftotext="mutool draw 2>/dev/null -F txt"
 fi
 
