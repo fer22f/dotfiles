@@ -1,0 +1,88 @@
+*cheatsheet.txt*
+*cheatsheet*
+
+Fer22f's personal cheat sheet for Vim.
+
+===============================================================================
+1. Default vim                                                  *vim-shortcuts*
+
+  - o, O : open lines
+  - <C-O>, <C-I> : go to older, newer cursor position
+
+===============================================================================
+2. Leader mappings
+
+  - v : open init.vim
+  - o, O : open lines with leading line and count
+  - cd : set working directory to the current file
+  - f : alias for :find
+  - g : alias for :Ggrep
+  - . : change current word
+  - w : remove trailing whitespace
+
+===============================================================================
+3. Other custom mappings
+
+  - [e, ]e : move line up/down when linewise, move left/right when block
+  - [w, ]w : go to next, last whitespace error
+  - Q : play q
+  - <A-h> <A-j> <A-k> <A-l> : move between windows
+  - gl : alias for Tabularize /
+  - gL : alias for Tabularize //\zs
+
+===============================================================================
+4. Useful commands
+
+  :CloseHiddenBuffers : close all other buffers
+
+===============================================================================
+5. Useful plugin mappings
+
+ReplaceWithRegister
+  - grr : replace with register
+
+commentary
+  - gcc : add comment
+  - gcgc, gcu : uncomment adjacent lines
+
+tabularize
+  - :Tabularize /,
+
+vim-swap
+  - g>, g< : swaps items under the cursor
+  : gs : starts interactive swap mode
+
+abolish
+  - crc : camelCase
+  - crm : MixedCase
+  - cr_, crs : snake_case
+  - cru, crU : SNAKE_UPPERCASE
+  - cr-, crk : dash-case, kebab-case
+  - cr<space> : space case
+  - crt : Title Case
+
+vim-unimpaired
+  - [s, ]s : go to next spelling error
+  - [f, ]f : previous, next file
+  - ]<space>, [<space> : add blank lines
+  - yos : toggle spell
+  - yov : virtual edit
+  - yow : wrap
+  - yod : toggle diff
+  - [p, ]p : linewise pasting
+  - =p, =p : linewise pasting, reindent
+  - [xx, ]xx : xml encode, decode
+  - [uu, ]uu : url encode, decode
+  - [yy, ]yy : c string encode, decode
+
+sandwich
+  b can be used as placeholder
+
+  - saiw : makes foo to (foo).
+  - sd( : deletes surrounding (
+  - sr(" : replaces ( with "
+
+exchange
+  - cx{motion} : defines region and swaps
+  - cxc : clears region
+  : {Visual}X : in visual mode
