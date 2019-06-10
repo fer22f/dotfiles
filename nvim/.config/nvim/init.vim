@@ -1,5 +1,5 @@
-" plugin options (before loading plugins)
-let g:move_key_modifier = 'C'
+let g:ale_sign_column_always = 1
+let g:move_map_keys = 0
 
 set packpath+=~/.config/nvim
 packloadall
@@ -79,18 +79,46 @@ let mapleader=' '
 nnoremap <leader>v :e $MYVIMRC
 
 " open one or more lines lines
-nnoremap <Leader>o :<C-u>call OpenLines(v:count,0)<CR>S
-nnoremap <Leader>O :<C-u>call OpenLines(v:count,-1)<CR>S
+nnoremap <Leader>o <Cmd>call OpenLines(v:count,0)<CR>S
+nnoremap <Leader>O <Cmd>call OpenLines(v:count,-1)<CR>S
 
 " set working directory to the current file
 nnoremap <leader>cd :cd %:p:h<CR>
 
 nnoremap <leader>f :find<space>
 nnoremap <leader>g :Ggrep<space>
-nnoremap <leader>a :Gwrite<CR>
+
+nnoremap gl :Tabularize /
+vnoremap gl :Tabularize /
+nnoremap gL :Tabularize /\zs<Left><Left><Left>
+vnoremap gL :Tabularize /\zs<Left><Left><Left>
 
 set modeline
 nnoremap Y y$
+
+" Call depends on mode
+function! MoveE(dir)
+  if mode() ==# "v" || mode() ==# "\<C-V>"
+    " move block
+    if a:dir < 0 | exe "normal \<Plug>MoveBlockLeft" | else | exe "normal \<Plug>MoveBlockRight" | endif
+  elseif mode() ==# "V"
+    " move line
+    if a:dir < 0 | exe "normal \<Plug>MoveBlockUp" | else | exe "normal \<Plug>MoveBlockDown" | endif
+  else
+    " move line
+    if a:dir < 0 | exe "normal \<Plug>MoveLineDown" | else | exe "normal \<Plug>MoveLineUp" | endif
+  endif
+endfunction
+
+nmap <silent> <Plug>MoveE- <Cmd>call MoveE(-1)<CR>:<C-U>call repeat#set("\<Plug>MoveE-")<CR>
+nmap <silent> <Plug>MoveE+  <Cmd>call MoveE(1)<CR>:<C-U>call repeat#set("\<Plug>MoveE+")<CR>
+vmap <silent> <Plug>MoveE- <Cmd>call MoveE(-1)<CR>:<C-U>call repeat#set("gv\<Plug>MoveE-")<CR>
+vmap <silent> <Plug>MoveE+  <Cmd>call MoveE(1)<CR>:<C-U>call repeat#set("gv\<Plug>MoveE+")<CR>
+
+nmap [e <Plug>MoveE-
+nmap ]e <Plug>MoveE+
+vmap [e <Plug>MoveE-
+vmap ]e <Plug>MoveE+
 
 " open multiple lines (insert empty lines) before or after current line,
 " and position cursor in the new space, with at least one blank line
@@ -104,9 +132,7 @@ endfunction
 
 " relativize only on normal mode, not on insert or out of focus
 function! Relativize(v)
-  if &number
     let &relativenumber = a:v
-  endif
 endfunction
 
 augroup relativize
@@ -162,10 +188,6 @@ nnoremap [w /\s\+$<CR>
 
 " Q is quite useless
 nnoremap Q @q
-
-" keep the current block selected for indenting
-vmap > >gv
-vmap < <gv
 
 " change current word
 nnoremap <silent> <leader>. :<C-U>

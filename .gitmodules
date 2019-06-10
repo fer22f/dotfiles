@@ -14,10 +14,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-lion"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-lion
-	url = https://github.com/tommcdo/vim-lion.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-markdown"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
@@ -82,10 +78,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/previm
 	url = https://github.com/previm/previm.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-move"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
-	url = https://github.com/matze/vim-move.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-swap"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-swap
 	url = https://github.com/machakann/vim-swap.git
@@ -94,3 +86,15 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-package-info
 	url = https://github.com/meain/vim-package-info.git
 	shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/ale"]
+	path = nvim/.config/nvim/pack/external-plugins/start/ale
+	url = https://github.com/w0rp/ale.git
+  shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/vim-move"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
+	url = https://github.com/matze/vim-move.git
+  shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/ReplaceWithRegister"]
+	path = nvim/.config/nvim/pack/external-plugins/start/ReplaceWithRegister
+	url = https://github.com/vim-scripts/ReplaceWithRegister.git
+  shallow = true
