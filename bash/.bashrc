@@ -66,18 +66,18 @@ RESET="$(tput sgr0)"
 TITLE="$(echo -en "\033]0;")"
 TITLEEND="$(echo -en "\007")"
 
-if [ -n "SSH_CLIENT" ]; then
-  printf %b '\e]11;#000000\a'
-else
-  printf %b '\e]11;#04143a\a'
-fi
+function update_background_color {
+  if [ -n "$SSH_CLIENT" ]; then
+    printf %b '\e]11;#04143a\a'
+  else
+    printf %b '\e]11;#000000\a'
+  fi
+}
+
+update_background_color
 
 function cool_prompt {
-  if [ -n "SSH_CLIENT" ]; then
-    printf %b '\e]11;#000000\a'
-  else
-    printf %b '\e]11;#04143a\a'
-  fi
+  update_background_color
 
   P_EXIT="$?"
   if [ $P_EXIT -eq 0 ]; then
