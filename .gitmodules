@@ -98,3 +98,15 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/ReplaceWithRegister
 	url = https://github.com/vim-scripts/ReplaceWithRegister.git
   shallow = true
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-signify"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-rooter"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-rooter
+	url = https://github.com/airblade/vim-rooter.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-evanesco"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-evanesco
+	url = https://github.com/pgdouyon/vim-evanesco
+[submodule "nvim/.config/nvim/pack/external-plugins/start/awk-ward.nvim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/awk-ward.nvim
+	url = https://gitlab.com/HiPhish/awk-ward.nvim
