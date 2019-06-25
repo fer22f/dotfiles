@@ -56,7 +56,14 @@ autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " allow for searching using :find
 set path=.,**
-set wildignore=*/node_modules/*
+set wildignore=*/node_modules/*,*/dist/*
+set wildmode=list:full
+
+set suffixesadd+=.ts
+set suffixesadd+=.vue
+
+" `gf` opens file under cursor in a new vertical split
+nnoremap gf :vertical wincmd f<CR>
 
 " allow for multiple buffers
 set hidden
@@ -77,6 +84,8 @@ let mapleader=' '
 
 " open .vimrc or init.vim
 nnoremap <leader>v :e $MYVIMRC
+set wildcharm=<C-z>
+nnoremap <leader>e :e %:h<C-z>
 
 " open one or more lines lines
 nnoremap <Leader>o <Cmd>call OpenLines(v:count,0)<CR>S
@@ -115,10 +124,10 @@ nmap <silent> <Plug>MoveE+  <Cmd>call MoveE(1)<CR>:<C-U>call repeat#set("\<Plug>
 vmap <silent> <Plug>MoveE- <Cmd>call MoveE(-1)<CR>:<C-U>call repeat#set("gv\<Plug>MoveE-")<CR>
 vmap <silent> <Plug>MoveE+  <Cmd>call MoveE(1)<CR>:<C-U>call repeat#set("gv\<Plug>MoveE+")<CR>
 
-nmap [e <Plug>MoveE-
-nmap ]e <Plug>MoveE+
-vmap [e <Plug>MoveE-
-vmap ]e <Plug>MoveE+
+nmap [e <Plug>MoveE+
+nmap ]e <Plug>MoveE-
+vmap [e <Plug>MoveE+
+vmap ]e <Plug>MoveE-
 
 " open multiple lines (insert empty lines) before or after current line,
 " and position cursor in the new space, with at least one blank line
@@ -153,7 +162,7 @@ aug end
 " git grep
 func! GitGrep(...)
   let save = &grepprg
-  set grepprg=git\ grep\ -n\ $*
+  set grepprg=git\ grep\ -n\ \"$*\"
   let s = 'grep'
   for i in a:000
     let s = s . ' ' . i
@@ -195,18 +204,6 @@ nnoremap <silent> <leader>. :<C-U>
   \/<C-R><C-R>=substitute(
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \cgn<C-R>.<esc>:call setreg('"', old_reg, old_regtype)<CR>
-
-" search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
@@ -280,4 +277,9 @@ set statusline+=%=
 " cursor column
 set statusline+=%c,
 " line/total lines
-set statusline+=%l/%L\
+set statusline+=%l/%L\ "
+
+set iskeyword+=-
+
+inoremap {, {<CR>},<C-c>O
+inoremap {<CR> {<CR>}<C-c>O
