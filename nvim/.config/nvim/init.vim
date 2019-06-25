@@ -263,9 +263,9 @@ set statusline=\ "
 " tail of the filename
 set statusline+=%n\ %t
 " file encoding (not utf-8 or blank)
-set statusline+=%{&fenc!='utf-8'&&strlen(&fenc)?'['+&fenc+']':''}
+set statusline+=%{&fenc!='utf-8'&&strlen(&fenc)?'['.&fenc.']':''}
 " line endings (not unix)
-set statusline+=%{&ff!='unix'?'['+&ff+']':''}
+set statusline+=%{&ff!='unix'?'['.&ff.']':''}
 " modified flag
 set statusline+=%2*%{&modified?'*':''}%*
 " show whitespace warning
