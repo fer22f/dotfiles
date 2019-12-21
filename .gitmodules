@@ -131,3 +131,6 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-ingo-library"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-ingo-library
 	url = https://github.com/inkarkat/vim-ingo-library.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-move"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
+	url = https://github.com/matze/vim-move.git
