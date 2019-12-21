@@ -62,6 +62,7 @@ abolish
   - crt : Title Case
 
 vim-unimpaired
+  - [q, ]q : go to next quickfix error
   - [s, ]s : go to next spelling error
   - [f, ]f : previous, next file
   - ]<space>, [<space> : add blank lines
@@ -86,3 +87,16 @@ exchange
   - cx{motion} : defines region and swaps
   - cxc : clears region
   : {Visual}X : in visual mode
+
+splitjoin
+  - gS : splits one line code into multiple
+  - gJ : joins code form multiple lines into one
+
+===============================================================================
+6. Readline
+
+ - <C-a>, <C-e>  - start, end of line
+ - <C-f>, <C-b>  - forwards, backwards one character
+ - <C-d>         - delete one character
+ - <M-f>, <M-b>  - forwards, backwards one word
+ - <M-d>, <M-BS> - delete forwards, backwards one word
