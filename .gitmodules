@@ -76,7 +76,7 @@
 	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/previm"]
 	path = nvim/.config/nvim/pack/external-plugins/start/previm
-	url = https://github.com/previm/previm.git
+	url = https://github.com/fer22f/previm.git
 	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-swap"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-swap
@@ -110,3 +110,24 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/awk-ward.nvim"]
 	path = nvim/.config/nvim/pack/external-plugins/start/awk-ward.nvim
 	url = https://gitlab.com/HiPhish/awk-ward.nvim
+[submodule "nvim/.config/nvim/pack/external-plugins/start/splitjoin.vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-indent-guides"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-peekaboo"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-peekaboo
+	url = https://github.com/junegunn/vim-peekaboo.git
+[submodule "fzf/.fzf"]
+	path = fzf/.fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/editorconfig-vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-ExtractMatches"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-ExtractMatches
+	url = https://github.com/inkarkat/vim-ExtractMatches.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-ingo-library"]
+	path = nvim/.config/nvim/pack/external-plugins/start/vim-ingo-library
+	url = https://github.com/inkarkat/vim-ingo-library.git
