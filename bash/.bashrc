@@ -155,3 +155,18 @@ export PATH=$PATH:~/.cabal/bin
 export PATH=$PATH:~/.local/flutter/bin
 
 alias dcr="docker-compose run --rm"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+complete -F _fzf_path_completion -o default -o bashdefault e
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git'
+
+detach () {
+  bash -c "$@" &>/dev/null </dev/null & disown
+}
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
