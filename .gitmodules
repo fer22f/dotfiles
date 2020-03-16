@@ -38,10 +38,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-vue
 	url = https://github.com/posva/vim-vue.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-commentary"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-exchange"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-exchange
 	url = https://github.com/tommcdo/vim-exchange.git
@@ -70,10 +66,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/vim-hexokinase"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-hexokinase
-	url = https://github.com/RRethy/vim-hexokinase.git
-	shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/previm"]
 	path = nvim/.config/nvim/pack/external-plugins/start/previm
 	url = https://github.com/fer22f/previm.git
@@ -86,14 +78,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-package-info
 	url = https://github.com/meain/vim-package-info.git
 	shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/start/ale"]
-	path = nvim/.config/nvim/pack/external-plugins/start/ale
-	url = https://github.com/w0rp/ale.git
-  shallow = true
-[submodule "nvim/.config/nvim/pack/external-plugins/vim-move"]
-	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
-	url = https://github.com/matze/vim-move.git
-  shallow = true
 [submodule "nvim/.config/nvim/pack/external-plugins/start/ReplaceWithRegister"]
 	path = nvim/.config/nvim/pack/external-plugins/start/ReplaceWithRegister
 	url = https://github.com/vim-scripts/ReplaceWithRegister.git
@@ -134,3 +118,10 @@
 [submodule "nvim/.config/nvim/pack/external-plugins/start/vim-move"]
 	path = nvim/.config/nvim/pack/external-plugins/start/vim-move
 	url = https://github.com/matze/vim-move.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/tcomment_vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "nvim/.config/nvim/pack/external-plugins/start/coc.nvim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
+	branch = release

@@ -1,8 +1,12 @@
-let g:ale_sign_column_always = 1
-let g:vue_disable_pre_processors=1
-let g:move_map_keys = 0
+" don't have keys in the plugin for moving lines around
+let g:move_map_keys=0
+" don't root automatically
+let g:rooter_manual_only=1
 
-let g:rooter_manual_only = 1
+" configure indent guides
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
+let g:indent_guides_enable_on_vim_startup=1
 
 set rtp+=~/.fzf
 
@@ -10,34 +14,36 @@ set rtp+=~/.fzf
 let g:gruvbox_contrast_dark='hard'
 set background=dark
 
-" extra whitespace
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-" statusline colors
-autocmd ColorScheme * highlight User1 guibg=red
-autocmd ColorScheme * highlight User2 guifg=orange guibg=#504945
-autocmd ColorScheme * highlight User3 guifg=red guibg=#504945
+" add italic support to gruvbox
+let g:gruvbox_italic=1
+
+" link jsFuncCall to green
 autocmd ColorScheme * highlight link jsFuncCall GruvboxGreen
 
-colorscheme gruvbox
-
-let g:indent_guides_guide_size=1
-let g:indent_guides_start_level=2
-let g:indent_guides_enable_on_vim_startup=1
-
-set packpath+=~/.config/nvim
-packloadall
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " only toggle this for neovim
 if has('termguicolors')
+  " terminal color / italics finagling
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
-" terminal color / italics finagling
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+colorscheme gruvbox
 
-highlight Comment cterm=italic
+" highlight bad whitespace
+augroup WhiteSpaceMatch
+  autocmd!
+  match ExtraWhitespace /\s\+$/
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup end
+
+set packpath+=~/.config/nvim
+packloadall
 
 " fix annoying markdown folding
 let g:vim_markdown_folding_disabled=1
@@ -57,39 +63,47 @@ set splitright
 " search ignoring case if all lowercase
 set ignorecase smartcase
 
+" show whitespace characters and tabs
 set list listchars=trail:•,tab:»\ |
 
-" conceal cursor
-aug conceal | exe 'au!' | au BufWinEnter * set concealcursor=cn | aug end
-let g:javascript_conceal_function="λ"
-set conceallevel=2
+" allow for multiple buffers
+set hidden
 
+" default to 2, but some languages do 4
 set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype c setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4 | exe "EditorConfigReload"
 autocmd Filetype elm setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
-augroup minivimrc
+" allow for modeline
+set modeline
+
+" classic
+nnoremap Y y$
+
+augroup ConcealCursor
   autocmd!
-  " automatic location/quickfix window
+  autocmd BufWinEnter * set concealcursor=cn
+augroup end
+
+let g:javascript_conceal_function="λ"
+set conceallevel=2
+
+augroup AutomaticLocationQuickFixWindow
+  autocmd!
   autocmd QuickFixCmdPost [^l]* cwindow
   autocmd QuickFixCmdPost    l* lwindow
-augroup END
+augroup end
 
-" allow for searching using :find
-set path=.,**
-set wildignore=*/node_modules/*,*/dist/*,*/coverage/*
+" better wildmode
 set wildmode=list:full
 
+" `gf` suffixes
 set suffixesadd+=.ts
 set suffixesadd+=.vue
-
 " `gf` opens file under cursor in a new vertical split
 nnoremap gf :vertical wincmd f<CR>
-
-" allow for multiple buffers
-set hidden
 
 " uses amazing incremental command neovim feature if available
 if exists("+inccommand")
@@ -100,25 +114,45 @@ endif
 nnoremap <expr> j (v:count ? (v:count > 5 ? "m'" . v:count : '') : 'g') . 'j'
 nnoremap <expr> k (v:count ? (v:count > 5 ? "m'" . v:count : '') : 'g') . 'k'
 
-" sane terminal ESC
-tnoremap <Esc> <C-\><C-n>
-
 let mapleader=' '
 
 " open .vimrc or init.vim
 nnoremap <leader>v :e $MYVIMRC
+
+" open at current directory
 set wildcharm=<C-z>
 nnoremap <leader>e :e %:h<C-z>
+" set working directory to the current file
+nnoremap <leader>cd :cd %:p:h<CR>
 
 " open one or more lines lines
 nnoremap <Leader>o <Cmd>call OpenLines(v:count,0)<CR>S
 nnoremap <Leader>O <Cmd>call OpenLines(v:count,-1)<CR>S
 
-" set working directory to the current file
-nnoremap <leader>cd :cd %:p:h<CR>
+" open multiple lines (insert empty lines) before or after current line,
+" and position cursor in the new space, with at least one blank line
+" before and after the cursor.
+function! OpenLines(nrlines, dir)
+    let nrlines = a:nrlines < 2 ? 2 : a:nrlines
+    let start = line('.') + a:dir
+    call append(start, repeat([''], nrlines))
+    if a:dir < 0 | exe 'normal! 2k' | else | exe 'normal! 2j' | endif
+endfunction
 
-nnoremap <leader>f :find<space>
 nnoremap <leader>g :Ggrep<space>""<Left>
+
+" git grep
+func! GitGrep(...)
+  let save = &grepprg
+  set grepprg=git\ grep\ -n\ $*
+  let s = 'grep'
+  for i in a:000
+    let s = s . ' ' . i
+  endfor
+  exe s
+  let &grepprg = save
+endfun
+command! -nargs=? Ggrep call GitGrep(<f-args>)
 
 nnoremap <leader><leader> :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap <leader>%       :%s/\<<C-r>=expand('<cword>')<CR>\>/
@@ -130,9 +164,6 @@ nnoremap gl :Tabularize /
 vnoremap gl :Tabularize /
 nnoremap gL :Tabularize /\zs<Left><Left><Left>
 vnoremap gL :Tabularize /\zs<Left><Left><Left>
-
-set modeline
-nnoremap Y y$
 
 " Call depends on mode
 function! MoveE(dir)
@@ -179,57 +210,24 @@ nmap ]e <Plug>MoveE-
 vmap [e <Plug>MoveE+
 vmap ]e <Plug>MoveE-
 
-" open multiple lines (insert empty lines) before or after current line,
-" and position cursor in the new space, with at least one blank line
-" before and after the cursor.
-function! OpenLines(nrlines, dir)
-    let nrlines = a:nrlines < 2 ? 2 : a:nrlines
-    let start = line('.') + a:dir
-    call append(start, repeat([''], nrlines))
-    if a:dir < 0 | exe 'normal! 2k' | else | exe 'normal! 2j' | endif
-endfunction
-
 " relativize only on normal mode, not on insert or out of focus
 function! Relativize(v)
     let &relativenumber = a:v
 endfunction
 
-augroup relativize
+augroup Relativize
   autocmd!
   autocmd BufWinEnter,FocusGained,InsertLeave,WinEnter * call Relativize(1)
   autocmd BufWinLeave,FocusLost,InsertEnter,WinLeave * call Relativize(0)
 augroup end
 
 " go back to editing the same line as you exited in a file
-aug return_to_last_edit_position
-    exe 'au!'
-    au BufReadPost *
+augroup ReturnToLastEditPosition
+    autocmd!
+    autocmd BufReadPost *
 \     if line("'\"") > 1 && line("'\"") <= line("$") |
 \       exe "normal! g`\"" |
 \     endif
-aug end
-
-" git grep
-func! GitGrep(...)
-  let save = &grepprg
-  set grepprg=git\ grep\ -n\ $*
-  let s = 'grep'
-  for i in a:000
-    let s = s . ' ' . i
-  endfor
-  exe s
-  let &grepprg = save
-endfun
-command! -nargs=? Ggrep call GitGrep(<f-args>)
-
-" highlight bad whitespace
-augroup WhiteSpaceMatch
-  autocmd!
-  match ExtraWhitespace /\s\+$/
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-  autocmd BufWinLeave * call clearmatches()
 augroup end
 
 augroup GitCommitNoWhiteSpaceMatch
@@ -239,14 +237,17 @@ augroup end
 
 " clear trailing space
 command! -range=% TR let b:wv = winsaveview() |
-            \ keeppattern <line1>,<line2>s/\s\+$// |
-            \ call winrestview(b:wv)
+  \ keeppattern <line1>,<line2>s/\s\+$// |
+  \ call winrestview(b:wv)
 nnoremap <leader>w :<C-U>TR<CR>
 nnoremap ]w ?\s\+$<CR>
 nnoremap [w /\s\+$<CR>
 
 " Q is quite useless
 nnoremap Q @q
+
+" Power to the trailing comma!
+let g:splitjoin_trailing_comma = 1
 
 " change current word
 nnoremap <silent> <leader>. :<C-U>
@@ -291,22 +292,6 @@ set whichwrap=b,s,h,l,s,<,>,[,],~
 set wildcharm=<C-z>
 cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<c-r>/' : '<C-z>'
 cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<c-r>/' : '<S-Tab>'
-
-function! IndentLevel(lnum)
-  return indent(a:lnum) / &shiftwidth
-endfunction
-
-function! GetMJSFold(lnum)
-  if getline(a:lnum) =~ '^).'
-    return '>1'
-  endif
-
-  if getline(a:lnum) =~ '^const'
-    return '>1'
-  endif
-
-  return '='
-endfunction
 
 set foldtext=getline(v:foldstart)
 
@@ -360,13 +345,10 @@ set statusline+=%1*%{StatuslineTrailingSpaceWarning()}%*
 set statusline+=%3*%{&readonly?(&modifiable?'-':'!'):(&modifiable?'':'!')}%*
 " left/right separator
 set statusline+=%=
-" cursor column
-set statusline+=%c,
-" line/total lines
-set statusline+=%l/%L\ "
-
-" add dash to keyword
-set iskeyword+=-
+" line:column of the cursor
+set statusline+=%l:%c
+" percentage of the file
+set statusline+=\ %p%%%{'\ '}
 
 " autoexpansion
 inoremap (<CR> (<CR>)<Esc>O
@@ -376,6 +358,9 @@ inoremap {, {<CR>},<Esc>O
 inoremap [<CR> [<CR>]<Esc>O
 inoremap [; [<CR>];<Esc>O
 inoremap [, [<CR>],<Esc>O
+
+" close HTML tag
+iabbrev </ </<C-X><C-O>
 
 " :[range]SortGroup[!] [n|f|o|b|x] /{pattern}/
 " e.g. :SortGroup /^header/
@@ -432,13 +417,11 @@ command! -range=% -bang -nargs=+ SortGroup <line1>,<line2>call <SID>sort_by_head
 
 let g:previm_open_cmd = 'xdg-open'
 
+" fzf mapping
 nnoremap <C-P> :execute ":FZF " . FindRootDirectory()<CR>
 
 let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'js=javascript']
 
-""""""""""""""""""""""""""""""
-" => JSON
-"""""""""""""""""""""""""""""""
 " magically format/minify json in the current buffer
 nnoremap <leader>j :%!jq '.'<CR>
 nnoremap <leader>J :%!jq -c '.'<CR>
@@ -466,3 +449,41 @@ else
   nnoremap <Space>P "*P
   vnoremap <Space>P "*P
 endif
+
+inoremap <C-l> <Esc>
+noremap! <silent> <C-l> <Esc>
+vnoremap <silent> <C-l> <Esc>
+onoremap <silent> <C-l> <Esc>
+cnoremap <silent> <C-l> <C-c>
+tnoremap <silent> <C-l> <Esc>
+
+set shortmess+=c
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+nmap <silent> <leader>a :<C-u>CocCommand actions.open<CR>

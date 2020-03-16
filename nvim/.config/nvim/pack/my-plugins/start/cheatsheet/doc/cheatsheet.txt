@@ -92,6 +92,14 @@ splitjoin
   - gS : splits one line code into multiple
   - gJ : joins code form multiple lines into one
 
+coc.nvim
+  - [g, ]g : navigate diagnostics
+  - gd : go to definition
+  - gy : go to type definition
+  - gi : implementation
+  - gr : references
+  - <space>rn : rename
+
 ===============================================================================
 6. Readline
 
@@ -100,3 +108,9 @@ splitjoin
  - <C-d>         - delete one character
  - <M-f>, <M-b>  - forwards, backwards one word
  - <M-d>, <M-BS> - delete forwards, backwards one word
+
+===============================================================================
+7. Random commands
+
+  - :AwkWard starts a new session, starting from the current code
+  - :PreviewOpen starts live markdown rendering
