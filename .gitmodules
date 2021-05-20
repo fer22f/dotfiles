@@ -125,3 +125,6 @@
 	path = nvim/.config/nvim/pack/external-plugins/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = release
+[submodule "nvim/.config/nvim/pack/external-plugins/start/ansible-vim"]
+	path = nvim/.config/nvim/pack/external-plugins/start/ansible-vim
+	url = https://github.com/pearofducks/ansible-vim.git

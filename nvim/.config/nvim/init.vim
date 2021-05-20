@@ -72,6 +72,7 @@ set hidden
 " default to 2, but some languages do 4
 set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype c setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype cuda setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4 | exe "EditorConfigReload"
 autocmd Filetype elm setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -121,7 +122,6 @@ nnoremap <leader>v :e $MYVIMRC
 
 " open at current directory
 set wildcharm=<C-z>
-nnoremap <leader>e :e %:h<C-z>
 " set working directory to the current file
 nnoremap <leader>cd :cd %:p:h<CR>
 
@@ -140,11 +140,12 @@ function! OpenLines(nrlines, dir)
 endfunction
 
 nnoremap <leader>g :Ggrep<space>""<Left>
+nnoremap <leader>*g :Ggrep<space>"<C-r>=expand('<cword>')<CR>"<CR>
 
 " git grep
 func! GitGrep(...)
   let save = &grepprg
-  set grepprg=git\ grep\ -n\ $*
+  set grepprg=git\ grep\ -n\ $*\ --\ :/
   let s = 'grep'
   for i in a:000
     let s = s . ' ' . i
@@ -156,9 +157,6 @@ command! -nargs=? Ggrep call GitGrep(<f-args>)
 
 nnoremap <leader><leader> :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap <leader>%       :%s/\<<C-r>=expand('<cword>')<CR>\>/
-
-nnoremap <leader>xr :vsplit<CR><C-w>l: e .<CR>:vertical resize 25<CR>
-nnoremap <leader>xl :vsplit<CR><C-w>:e .<CR>:vertical resize 25<CR>
 
 nnoremap gl :Tabularize /
 vnoremap gl :Tabularize /
