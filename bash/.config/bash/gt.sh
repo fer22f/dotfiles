@@ -55,7 +55,7 @@ gt () {
       shift 1
       git diff HEAD -- ${@};;
     "")
-      git status;;
+      git status -- .;;
     *)
       git $@;;
   esac
