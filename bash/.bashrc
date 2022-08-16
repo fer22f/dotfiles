@@ -56,7 +56,7 @@ if command -v mutool >/dev/null; then
   alias pdftotext="mutool draw 2>/dev/null -F txt"
 fi
 
-export PATH=$PATH:~/.local/bin/
+export PATH=~/.local/bin/:$PATH
 
 RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
@@ -65,13 +65,14 @@ MAGENTA="$(tput setaf 5)"
 RESET="$(tput sgr0)"
 TITLE="$(echo -en "\033]0;")"
 TITLEEND="$(echo -en "\007")"
+if [ -n "$SSH_CLIENT" ]; then
+  BGCOLOR="#04143a"
+else
+  BGCOLOR="#000000"
+fi
 
 function update_background_color {
-  if [ -n "$SSH_CLIENT" ]; then
-    printf %b '\e]11;#04143a\a'
-  else
-    printf %b '\e]11;#000000\a'
-  fi
+  printf %b '\e]11;'$BGCOLOR'\a'
 }
 
 update_background_color
@@ -122,9 +123,6 @@ pdfrg () {
 
 [[ -z $XDG_CONFIG_HOME ]] && export XDG_CONFIG_HOME="$HOME/.config"
 
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim" | source $MYVIMRC'
-export VIMDOTDIR="$XDG_CONFIG_HOME/nvim"
-
 export PROMPT_DIRTRIM=3
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
@@ -143,7 +141,8 @@ take () {
 source $XDG_CONFIG_HOME/bash/gt.sh
 
 alias e=$EDITOR
-alias o=xdg-open >/dev/null 2>/dev/null
+alias ge="neovide --multiGrid --maximized >/dev/null 2>/dev/null --"
+alias o="xdg-open >/dev/null 2>/dev/null"
 
 source $XDG_CONFIG_HOME/bash/z/z.sh
 
@@ -167,6 +166,17 @@ detach () {
   bash -c "$@" &>/dev/null </dev/null & disown
 }
 
+bind '"\C-l":vi-movement-mode'
+
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+comp () {
+  g++ -std=c++17 -O2 -static $1
+}
+
+alias vim=e
+alias units='units --history "$XDG_DATA_HOME"/units_history'
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias sshkeys="ssh-add ~/.ssh/id_ed25519 ~/.ssh/id_rsa ~/.ssh/maratona ~/.ssh/caad"
