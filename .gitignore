@@ -3,3 +3,6 @@ bash/.config/bash/local.sh
 
 # cache
 .netrwhist
+
+# packer
+packer_compiled.lua
