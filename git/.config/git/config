@@ -5,7 +5,7 @@
   autosetupmerge = always
   autosetuprebase = always
 [alias]
-  subinit = git submodule update --init --recursive
+  subinit = submodule update --init --recursive
   ammend = commit --ammend
   unstage = reset HEAD --
   stagediff = diff --cached
