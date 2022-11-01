@@ -2,28 +2,24 @@
 
 gt () {
   case "$1" in
-    "get")
+    "list"|"ls")
       case "$2" in
         "b" | "branch" | "branches") git branch -v;;
-      esac;;
-    "go")
-      shift 1
-      git checkout ${@} || git checkout -b ${@};;
-    "new")
-      case "$2" in
-        "b" | "branch" | "branches")
-          shift 2
-
-          echo "git checkout -b ${@}"
-          # git checkout -b $@;;
+        "r" | "remote" | "remotes") git remote -v;;
       esac;;
     "stage")
-      shift 1
-      git add -- ${@:-.};;
+      if [[ -z $2 ]]; then
+        git stage .
+        git status -- .
+      else
+        git stage $2
+        git status -- .
+      fi
+      ;;
     "patch")
       shift 1
       git add --patch -- ${@};;
-    "commit")
+    "rcommit")
       if [[ -z $(git diff --staged) ]]; then
         git add . && git commit -v
       else
@@ -49,13 +45,14 @@ gt () {
         done
       fi
       ;;
-    "amend")
-      git commit --amend;;
     "diff")
       shift 1
-      git diff HEAD -- ${@};;
+      git diff HEAD -- .
+      ;;
     "")
       git status -- .;;
+    "checkout")
+      echo no;;
     *)
       git $@;;
   esac

@@ -9,7 +9,6 @@
   unstage = reset HEAD --
   stagediff = diff --cached
   alldiff = diff --cached HEAD^
-  switch = checkout -b
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   filelog = log -u
@@ -29,9 +28,11 @@
 [includeIf "gitdir:~/universidade/"]
   path = ~/universidade/gitconfig
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[commit]
+  verbose = true
