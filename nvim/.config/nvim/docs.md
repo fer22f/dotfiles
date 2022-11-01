@@ -1,5 +1,29 @@
-*cheatsheet.txt*
-*cheatsheet*
+# The way I use neovim
+
+* Plugins are handled by git submodules
+
+# Things I need to code
+
+* A way to open files quickly by searching for their names
+    * One solution is to use Ctrl+P
+* Show whitespace at the end of the lines as red
+    * Create thing that shows this
+* Syntax highlighting that works in Vue files
+* Bindings to copy from and to the clipboard
+* Binding to access the settings config
+    * `<leader>v`
+* Gruvbox theme
+* Way to move arguments of a function
+* Use editorconfig
+* Alternate between compact and open versions of code (splitjoin.vim)
+* Readline binding in insert mode (vim-rsi)
+* Show git changes in the sidebar
+* Sandwich text (add parenthesis, add ", etc)
+* Mappings for :cnext, :cprev, :bnext, :bprev ([q, ]q, [b, ]b)
+* Indent guides
+* Clear search after insert mode is entered or the cursor moves (vue-evanesco)
+* Add :Rename for file (vim-eunuch)
+* Coerce to snake_case, MixedCase, camelCase with vim-abolish
 
 Fer22f's personal cheat sheet for Vim.
 
@@ -50,7 +74,7 @@ tabularize
 
 vim-swap
   - g>, g< : swaps items under the cursor
-  : gs : starts interactive swap mode
+  - gs : starts interactive swap mode
 
 abolish
   - crc : camelCase
@@ -86,7 +110,7 @@ sandwich
 exchange
   - cx{motion} : defines region and swaps
   - cxc : clears region
-  : {Visual}X : in visual mode
+  - {Visual}X : in visual mode
 
 splitjoin
   - gS : splits one line code into multiple
@@ -109,8 +133,3 @@ coc.nvim
  - <M-f>, <M-b>  - forwards, backwards one word
  - <M-d>, <M-BS> - delete forwards, backwards one word
 
-===============================================================================
-7. Random commands
-
-  - :AwkWard starts a new session, starting from the current code
-  - :PreviewOpen starts live markdown rendering
