@@ -6,7 +6,7 @@
   autosetuprebase = always
 [alias]
   subinit = submodule update --init --recursive
-  ammend = commit --ammend
+  amend = commit --amend
   unstage = reset HEAD --
   stagediff = diff --cached
   alldiff = diff --cached HEAD^
