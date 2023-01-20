@@ -11,6 +11,30 @@ end
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
+
+  -- mini.nvim
+  use 'echasnovski/mini.nvim'
+  -- animate the cursor
+  use 'echasnovski/mini.animate'
+  -- highlight current word
+  use 'echasnovski/mini.cursorword'
+  -- move selection up/down
+  use 'echasnovski/mini.move'
+  -- trailing whitespace
+  use 'echasnovski/mini.trailspace'
+
+  use {
+    'ckolkey/ts-node-action',
+    requires = { 'nvim-treesitter' },
+    config = function()
+      local tsNodeAction = require 'ts-node-action'
+      tsNodeAction.setup {}
+      vim.keymap.set({ "n" }, "gS", tsNodeAction.node_action, { desc = "Trigger Node Action" })
+    end
+  }
+
+  use 'mizlan/iswap.nvim'
+
   -- Add git related info in the signs columns and popups
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- "gc" to comment visual regions/lines
@@ -53,6 +77,8 @@ require('packer').startup(function(use)
   use 'machakann/vim-sandwich'
   -- Better asterisk
   use 'haya14busa/vim-asterisk'
+  -- hlslens
+  use 'kevinhwang91/nvim-hlslens'
   -- Exchange
   use 'tommcdo/vim-exchange'
   -- Fold licenses
@@ -139,12 +165,17 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.cmd[[
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
-]]
+require('hlslens').setup()
+
+vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]], {})
+
+vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], {})
+vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]], {})
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -249,26 +280,6 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 
 vim.keymap.set('n', 'S', [[:keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>]])
 
-local function smart_split()
-  local ts_utils = require "nvim-treesitter.ts_utils"
-  local node = ts_utils.get_node_at_cursor()
-  if node == nil then return end
-  local if_node = node
-  while if_node ~= nil and if_node:type() ~= "if_statement" do
-    if_node = if_node:parent()
-  end
-  if if_node == nil then return end
-  local body = if_node:named_child(1)
-  if body:type() == "compound_statement" then return end
-  local start_line, start_col, end_line, end_col = if_node:range()
-  local nline = vim.api.nvim_buf_get_lines(0, start_line, start_line+1, true)[1]
-  nline = nline .. " {"
-  vim.api.nvim_buf_set_lines(0, start_line, start_line+1, true, {nline})
-  vim.api.nvim_buf_set_lines(0, end_line+1, end_line+1, true, {string.rep(' ', start_col) .. "}"})
-end
-
-vim.keymap.set('n', 'gS', smart_split)
-
 require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c', 'lua', 'typescript', 'rust', 'go', 'python' },
 
@@ -294,9 +305,6 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
-}
-
-require('nvim-treesitter.configs').setup {
   refactor = {
     navigation = {
       enable = true,
@@ -361,11 +369,21 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities({})
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'denols' }
+-- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'denols' }
 
 require('nvim-lsp-installer').setup {
   ensure_installed = servers,
 }
+
+local animate = require('mini.animate')
+animate.setup {
+  cursor = { timing = animate.gen_timing.linear({ duration = 50, unit = "total" }) },
+  scroll = { timing = animate.gen_timing.linear({ duration = 25, unit = "total" }) }
+}
+require('mini.trailspace').setup()
+require('mini.move').setup()
+require('mini.cursorword').setup()
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
