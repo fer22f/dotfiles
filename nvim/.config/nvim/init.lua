@@ -48,7 +48,8 @@ require('packer').startup(function(use)
   -- Collection of configurations for built-in LSP client
   use 'neovim/nvim-lspconfig'
   -- Automatically install language servers to stdpath
-  use 'williamboman/nvim-lsp-installer'
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
   -- Autocompletion
   use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }
   -- Theme
@@ -190,7 +191,13 @@ require('gruvbox').setup({
   undercurl = true,
   underline = true,
   bold = true,
-  italic = false,
+  italic = {
+    strings = false,
+    emphasis = true,
+    comments = true,
+    operators = false,
+    folds = false
+  },
   strikethrough = true,
   invert_selection = true,
   invert_signs = false,
@@ -213,15 +220,18 @@ require('lualine').setup {
 require('Comment').setup()
 
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#424242]]
-require('indent_blankline').setup {
-  show_trailing_blankline_indent = false,
-  show_current_context = true,
-  char = "▏",
-  char_highlight_list = {
-    "IndentBlanklineIndent1",
+require('ibl').setup {
+  indent = {
+    highlight = {
+      "IndentBlanklineIndent1",
+    },
+    char = "▏",
   },
-  space_char_highlight_list = {
-    "IndentBlanklineIndent1",
+  whitespace = {
+    remove_blankline_trail = true,
+    highlight = {
+      "IndentBlanklineIndent1",
+    },
   },
 }
 
@@ -369,11 +379,11 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities({})
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'sumneko_lua', 'denols' }
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'denols' }
-
-require('nvim-lsp-installer').setup {
+require('mason').setup()
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'lua_ls', 'denols' }
+require('mason-lspconfig').setup {
   ensure_installed = servers,
+  automatic_installation = true,
 }
 
 local animate = require('mini.animate')
@@ -395,23 +405,5 @@ end
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
-
-require('lspconfig').sumneko_lua.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-      telemetry = { enable = false, },
-    },
-  },
-}
 
 -- vim: ts=2 sts=2 sw=2 et
