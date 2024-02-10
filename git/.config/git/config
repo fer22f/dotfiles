@@ -28,6 +28,8 @@
   default = nothing
 [includeIf "gitdir:~/universidade/"]
   path = ~/universidade/gitconfig
+[includeIf "gitdir:~/git/inf/"]
+  path = ~/git/inf/gitconfig
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
